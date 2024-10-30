@@ -75,38 +75,38 @@ Specific details organized by pointer type below.
 
 int main() {
     
+    //Creating a constant and non-constant variable.
     int const a = 3;
     int b = 10;
     
-    // int *ptr1 = a can't be done as this pointer isn't constant.
     
-    //However, this is considered a pointer to a constant, so this one DOES work.
-    //A constant pointer that points to a constant location is read-only, which means its address or the value of the address it's pointing to can't be changed via something like '*ptr2 = &b'.
+    //Pointer to a constant: the address it points to can be changed, but the value can't.
     int const *ptr2 = &a;
-    
-    //This ptr acts as a regular pointer, no constant addresses pointed to, and it's not constant itself.
-    int *ptr3 = &b;
-    
-    //This ptr is a constant pointer to a constant address.
+
+    //Constant pointer to constant: the pointer cannot be changed to point to a different address, but the value of (in this example) b can be changed.
     int* const ptr4 = &b;
+    
+    //Regular pointer: address and value at that address can both be changed.
+    int *ptr3 = &b;
     
     
     cout << "Initial:\n";
-    cout << *ptr2 << endl;
-    cout << *ptr3 << endl;
-    cout << *ptr4 << endl;
+    cout << "ptr2 = ptr --> constant: " << *ptr2 << endl;
+    cout << "ptr3 = constant ptr --> constant: " << *ptr3 << endl;
+    cout << "ptr4 = regular pointer: "<< *ptr4 << endl;
     
+    //This will change the value of b to 15.
     *ptr3 += 5;
-    //The value of b is now 15.
+    //This will also change the value of b, so it is now 25.
+    *ptr4 += 10;
    
     
-    cout << "Result:\n";
-    cout << *ptr2 << endl;
-    cout << *ptr3 << endl;
-    *ptr4 += 10;
-    cout << *ptr4 << endl;
+    cout << "\nResult:\n";
+    cout << "ptr2 = ptr --> constant: " << *ptr2 << endl;
+    cout << "ptr3 = constant ptr --> constant: " << *ptr3 << endl;
+    cout << "ptr4 = regular pointer: "<< *ptr4 << endl;
 
-    //The results show the two pointer types that can have their values changed: ptr3 and ptr4.
+    //The results show the two pointer types that can change the values of the variables they point to: ptr3 and ptr4.
 
     return 0;
 }
